@@ -1,0 +1,7 @@
+.container { padding: 20px; font-family: sans-serif; }
+.table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+.th, .td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+.th { background-color: #f4f4f4; font-weight: bold; }
+.preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; background: #eee; }
+.actions button { margin-right: 8px; padding: 6px 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px; }
+.actions button:hover { background: #f0f0f0; }

@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AdminInventory from './pages/AdminInventory';
-import AdminInventoryCreate from './pages/AdminInventoryCreate'; // Додано імпорт
+import AdminInventoryCreate from './pages/AdminInventoryCreate'; 
 import AdminInventoryEdit from './pages/AdminInventoryEdit';
-import AdminInventoryDetails from './pages/AdminInventoryDetails'; // Додано імпорт
+import AdminInventoryDetails from './pages/AdminInventoryDetails'; 
+import Gallery from './pages/Gallery'; 
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/edit/:id" element={<AdminInventoryEdit />} />
         <Route path="/create" element={<AdminInventoryCreate />} />
         <Route path="/inventory/:id" element={<AdminInventoryDetails />} />
+        <Route path="/gallery" element={<Gallery />} />
 
       </Routes>
     </BrowserRouter>

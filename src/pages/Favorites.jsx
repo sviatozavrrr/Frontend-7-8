@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Gallery.module.css'; // Юзаємо ті ж стилі
+import Loader from '../components/Loader';
 
 export default function Favorites() {
   const [inventory, setInventory] = useState([]);
@@ -37,7 +38,7 @@ export default function Favorites() {
     setFavIds(favIds.filter(favId => favId !== id));
   };
 
-  if (isLoading) return <h2>Грузимо збережене... ⏳</h2>;
+  if (isLoading) return <Loader />;
 
   // ТА САМА ФІЛЬТРАЦІЯ 
   const favoriteItems = inventory.filter(item => favIds.includes(item.id));

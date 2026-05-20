@@ -182,3 +182,36 @@
     border-right-color: var(--border);
   }
 }
+
+/* Спінер завантаження */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #61dafb; /* Колір Реакту */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Анімація затемненого фону */
+.fade-in-backdrop {
+  animation: fadeInBackdrop 0.2s ease-out;
+}
+@keyframes fadeInBackdrop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Анімація самої білої картки (збільшення і плавна поява) */
+.fade-in-modal {
+  animation: fadeInModal 0.2s ease-out;
+}
+@keyframes fadeInModal {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import QuickViewModal from '../components/inventory/QuickViewModal';
 import styles from './Gallery.module.css';
+import Loader from '../components/Loader';
 
 export default function Gallery() {
   const [inventory, setInventory] = useState([]);
@@ -56,7 +57,7 @@ export default function Gallery() {
     }
   };
 
-  if (isLoading) return <h2>Грузимо галерею... ⏳</h2>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.container}>

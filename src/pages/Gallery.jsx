@@ -1,79 +1,62 @@
 import { useState, useEffect } from 'react';
+import { useInventory } from '../store/InventoryContext';
+import { useFavorites } from '../hooks/useFavorites';
+import { SkeletonGrid } from '../components/SkeletonCard';
 import QuickViewModal from '../components/inventory/QuickViewModal';
 import styles from './Gallery.module.css';
-import Loader from '../components/Loader';
 
 export default function Gallery() {
-  const [inventory, setInventory] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { inventory } = useInventory();
+  const { isFavorite, toggleFavorite } = useFavorites();
 
-  // Стейти для контролю модалки Quick View 🪟
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Ініціалізація улюблених з пам'яті браузера 💾
-  const [favIds, setFavIds] = useState(() => {
-    const saved = localStorage.getItem('favorites');
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  // Автоматичне збереження при зміні списку ❤️
+  // Імітуємо короткий стан завантаження для skeleton
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favIds));
-  }, [favIds]);
-
-  useEffect(() => {
-    const fetchGallery = async () => {
-      try {
-        setTimeout(() => {
-          setInventory([
-            { id: 1, inventory_name: 'Dell XPS 15', description: 'Потужний ноутбук для розробки та графіки.', photo: 'https://placehold.co/400x300' },
-            { id: 2, inventory_name: 'Крісло OfficePro', description: 'Ергономічне крісло для тривалої роботи за кодом.', photo: 'https://placehold.co/400x300' },
-            { id: 3, inventory_name: 'Монітор LG 27"', description: '4K монітор з IPS матрицею та чудовою передачею кольору.', photo: 'https://placehold.co/400x300' },
-            { id: 4, inventory_name: 'Механічна клавіатура', description: 'Тактильна механіка нальних свічах для швидкого набору.', photo: 'https://placehold.co/400x300' },
-          ]);
-          setIsLoading(false);
-        }, 500);
-      } catch (err) {
-        console.error('Помилка завантаження');
-      }
-    };
-    fetchGallery();
+    const t = setTimeout(() => setIsLoading(false), 700);
+    return () => clearTimeout(t);
   }, []);
 
-  // Хендлер для відкриття модалки
   const handleCardClick = (item) => {
     setSelectedItem(item);
     setIsModalOpen(true);
   };
 
-  // Перемикач стану улюбленого (додати/видалити)
-  const toggleFavorite = (e, item) => {
-    e.stopPropagation(); // Зупиняємо клік, щоб не тригерити модалку
-    if (favIds.includes(item.id)) {
-      setFavIds(favIds.filter(id => id !== item.id));
-    } else {
-      setFavIds([...favIds, item.id]);
-    }
-  };
+  if (isLoading) return (
+    <div className={styles.container}>
+      <h1>Галерея Інвентарю</h1>
+      <div className={styles.grid}>
+        <SkeletonGrid count={6} />
+      </div>
+    </div>
+  );
 
-  if (isLoading) return <Loader />;
+  if (inventory.length === 0) return (
+    <div className={styles.container}>
+      <h1>Галерея Інвентарю</h1>
+      <div style={s.empty}>
+        <span style={s.emptyIcon}>📦</span>
+        <p style={s.emptyText}>Інвентар порожній</p>
+        <p style={s.emptyHint}>Додай елементи через адмінку</p>
+      </div>
+    </div>
+  );
 
   return (
     <div className={styles.container}>
       <h1>Галерея Інвентарю</h1>
-      
+
       <div className={styles.grid}>
         {inventory.map((item) => (
           <div key={item.id} className={styles.card} onClick={() => handleCardClick(item)}>
-            {/* Кнопка сердечка */}
-            <button 
-              onClick={(e) => toggleFavorite(e, item)}
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleFavorite(item.id); }}
               className={styles.favButton}
             >
-              {favIds.includes(item.id) ? '❤️' : '🤍'}
+              {isFavorite(item.id) ? '❤️' : '🤍'}
             </button>
-
             <img src={item.photo} alt={item.inventory_name} className={styles.image} />
             <div className={styles.info}>
               <h3 className={styles.title}>{item.inventory_name}</h3>
@@ -82,12 +65,24 @@ export default function Gallery() {
         ))}
       </div>
 
-      {/* Модалка Quick View */}
-      <QuickViewModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        item={selectedItem} 
+      <QuickViewModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        item={selectedItem}
       />
     </div>
   );
 }
+
+const s = {
+  empty: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: '80px',
+    gap: '8px',
+  },
+  emptyIcon: { fontSize: '48px' },
+  emptyText: { fontSize: '18px', fontWeight: 600, color: '#e2e8f0', margin: 0 },
+  emptyHint: { fontSize: '14px', color: '#64748b', margin: 0 },
+};

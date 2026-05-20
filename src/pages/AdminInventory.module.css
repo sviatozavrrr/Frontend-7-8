@@ -1,7 +1,149 @@
-.container { padding: 20px; font-family: sans-serif; }
-.table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-.th, .td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-.th { background-color: #f4f4f4; font-weight: bold; }
-.preview { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; background: #eee; }
-.actions button { margin-right: 8px; padding: 6px 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px; }
-.actions button:hover { background: #f0f0f0; }
+/* ── Контейнер ── */
+.container {
+  padding: 32px 40px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #e2e8f0;
+}
+
+/* ── Заголовок ── */
+.container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+/* ── Кнопка "Додати інвентар" ── */
+.addButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  margin-bottom: 24px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.addButton:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+/* ── Таблиця ── */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1e2433;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+.th {
+  background: #151b2e;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #2d3748;
+}
+
+.td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #2d3748;
+  color: #cbd5e1;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child .td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover .td {
+  background: #252d3d;
+  transition: background 0.15s;
+}
+
+/* ── Превʼю фото ── */
+.preview {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #2d3748;
+  border: 1px solid #3d4a5c;
+}
+
+/* ── Кнопки дій ── */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btnView {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btnView:hover {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.btnEdit {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #10b981;
+  background: transparent;
+  color: #10b981;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btnEdit:hover {
+  background: #10b981;
+  color: #fff;
+}
+
+.btnDelete {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #ef4444;
+  background: transparent;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btnDelete:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+/* ── Empty state ── */
+.empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: #64748b;
+  font-size: 15px;
+}

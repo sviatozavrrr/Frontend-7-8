@@ -9,6 +9,9 @@ export default function Header() {
       <Link to="/gallery" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: 'bold' }}>
         🖼️ Галерея
       </Link>
+      <Link to="/favorites" style={{ color: '#fff', textDecoration: 'none', fontSize: '18px', fontWeight: 'bold' }}>
+        ❤️ Улюблені
+      </Link>
     </header>
   );
 }
